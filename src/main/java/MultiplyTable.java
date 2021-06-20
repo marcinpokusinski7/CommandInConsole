@@ -28,8 +28,8 @@ public class MultiplyTable extends Command{
                 System.out.println(Arrays.toString(tab.stream()
                         .mapToInt(x -> x * number)
                         .toArray()));
+                hasUndo();
             }
-            return true;
         }
         return false;
     }

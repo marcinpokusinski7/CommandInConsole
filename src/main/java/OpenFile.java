@@ -16,7 +16,6 @@ public class OpenFile extends Command {
             while (scanner.hasNextLine()) {
                 System.out.println(scanner.nextLine());
             }
-            return true;
         }
         return false;
     }

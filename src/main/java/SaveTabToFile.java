@@ -36,6 +36,6 @@ public class SaveTabToFile extends Command {
             System.out.println("File creation went wrong");
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 }

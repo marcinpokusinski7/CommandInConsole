@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Editor {
     final static Scanner myScanner = new Scanner(System.in);
     Editor editor = this;
+    private UndoTask undoTask = new UndoTask();
 
     public void doTasks() throws IOException {
         System.out.println("Press number : \n" +
@@ -26,35 +27,42 @@ public class Editor {
                     printMenu();
                     break;
                 case 2:
-                    SaveTabToFile saveTabToFile = new SaveTabToFile(editor);
-                    saveTabToFile.doSomething();
+                    performTask(new SaveTabToFile(editor));
                     System.out.println("---------");
                     break;
                 case 3:
-                    OpenFile openFile = new OpenFile(editor);
-                    openFile.doSomething();
+                    performTask(new OpenFile(editor));
                     System.out.println("---------");
                     break;
                 case 4:
-                    SumTables sumTables = new SumTables(editor);
-                    sumTables.doSomething();
+                    performTask(new SumTables(editor));
                     System.out.println("---------");
                     break;
                 case 5:
-                    MultiplyTable multiplyTable = new MultiplyTable(editor);
-                    multiplyTable.doSomething();
+                    performTask(new MultiplyTable(editor));
                     System.out.println("---------");
                     break;
                 case 6:
                     System.out.println("undo");
-                    System.out.println("---------");
+                    undo();
                     break;
             }
         }
     }
 
-    private void saveTabToFile() {
-        new SaveTabToFile(editor);
+    private void performTask(Command command) throws IOException {
+        if (command.doSomething()) {
+            undoTask.push(command);
+        }
+    }
+
+    private void undo() {
+        if (undoTask.isEmpty()) return;
+
+        Command command = undoTask.pop();
+        if (command != null) {
+            command.hasUndo();
+        }
     }
 
     public void printMenu() {

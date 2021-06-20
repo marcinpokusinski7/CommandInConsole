@@ -27,7 +27,6 @@ public class SumTables extends Command {
                         .mapToInt(x -> x + sc.nextInt())
                         .toArray()));
             }
-            return true;
         }
         return false;
     }
